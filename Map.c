@@ -41,7 +41,7 @@ Map newMap()
 }
 
 // Remove an existing graph
-void destroyMap(Map g)
+void disposeMap(Map g)
 {
    int i;
    VList curr;
@@ -71,22 +71,21 @@ static VList insertVList(VList L, LocationID v, TransportID type)
 
 static int inVList(VList L, LocationID v, TransportID type)
 {
-	VList cur;
-	for (cur = L; cur != NULL; cur = cur->next) {
-		if (cur->v == v && cur->type == type) return 1;
-	}
-	return 0;
+   VList cur;
+   for (cur = L; cur != NULL; cur = cur->next) {
+      if (cur->v == v && cur->type == type) return 1;
+   }
+   return 0;
 }
 
 // Add a new edge to the Map/Graph
 void addLink(Map g, LocationID start, LocationID end, TransportID type)
 {
 	assert(g != NULL);
-	// don't add edges twice
 	if (!inVList(g->connections[start],end,type)) {
-   	g->connections[start] = insertVList(g->connections[start],end,type);
-   	g->connections[end] = insertVList(g->connections[end],start,type);
-   	g->nE++;
+   	   g->connections[start] = insertVList(g->connections[start],end,type);
+   	   g->connections[end] = insertVList(g->connections[end],start,type);
+   	   g->nE++;
 	}
 }
 
@@ -132,6 +131,43 @@ int numE(Map g, TransportID type)
       }
     }
     return nE;
+}
+
+
+// Returns the number of direct connections between two nodes
+// Also fills the type[] array with the various connection types
+// Returns 0 if no direct connection (i.e. not adjacent in graph)
+int connections(Map g, LocationID start, LocationID end, TransportID type[])
+{
+   
+   assert(g != NULL);
+   int returnValue=0;
+   VList current = g->connections[start];
+   VList curr1;
+   while(current != NULL){
+      if(current->v == end){
+         type[returnValue] = current->type;
+         returnValue++;
+      }
+      if (idToType(current->v)==SEA){
+         curr1=g->connections[end];
+         while(curr1 != NULL){
+             if(curr1->v == current->v){
+                 type[returnValue] = current->type;
+                 returnValue++;
+             }
+             curr1 = curr1->next;
+	     }
+      }
+      current=current->next;
+   }
+   return returnValue;
+
+   
+
+
+   // TODO: complete this fucntion
+ //  return 0;  // to keep the compiler happy
 }
 
 // Add edges to Graph representing map of Europe
