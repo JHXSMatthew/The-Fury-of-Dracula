@@ -61,7 +61,7 @@ int main()
     printf("Test for Dracula doubling back at sea, and losing blood points (Hunter View)\n");
     PlayerMessage messages4[] = {"Hello","Rubbish","Stuff","","Mwahahah","Aha!","","","","Back I go"};
     gv = newGameView("GGE.... SGE.... HGE.... MGE.... DS?.... "
-                     "GST.... SST.... HST.... MST.... DD1....", messages4);
+    		         "GST.... SST.... HST.... MST.... DD1....", messages4);
     assert(getLocation(gv,PLAYER_DRACULA) == DOUBLE_BACK_1);
     getHistory(gv,PLAYER_DRACULA,history);
     assert(history[0] == DOUBLE_BACK_1);
