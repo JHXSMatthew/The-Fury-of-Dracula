@@ -430,13 +430,17 @@ LocationID *connectedLocations(GameView currentView, int *numLocations,
 		int sea) {
 
 	LocationID loc [MAX_CONNECTION] ;
+printf("GameView -> Connection function start  %d \n");
+
 //dead?
 	if(isAlive(currentView,player) == DEAD){
+		printf("GameView -> DEAD,nothing to do   %d \n");
 	     numLocations = 0;
 	     return NULL;
 	 }
 //dracula cannot move rail
     if(player > 3){
+    	printf("GameView -> Dracula cannot move by RAIL   %d \n");
         if(rail == TRUE){
             rail = FALSE;
         }
