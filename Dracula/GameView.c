@@ -467,23 +467,24 @@ printf("GameView -> FOUND RAIL: %d \n", *numLocations);
 printf("GameView -> ROAD: %d \n", road);
 	if(road){
 		outputConnections(currentView->map, from , ROAD , numLocations,loc, 0);
-		int i;
-		int found = 0;
-		for(i=0;i < *numLocations; i++){
-			if(!found){
-				if(loc[i] == ST_JOSEPH_AND_ST_MARYS){
-					if(player == PLAYER_DRACULA){
-						found = 1;
+		if(player == PLAYER_DRACULA){
+			int i;
+			int found = 0;
+			for(i=0;i < *numLocations; i++){
+				if(!found){
+					if(loc[i] == ST_JOSEPH_AND_ST_MARYS){
+						if(player == PLAYER_DRACULA){
+							found = 1;
+						}
 					}
+				}else{
+					loc[i-1] = loc[i];
 				}
-			}else{
-				loc[i-1] = loc[i];
+			}
+			if(found){
+				(*numLocations) --;
 			}
 		}
-		if(found){
-			(*numLocations) --;
-		}
-
 
 
 roadcount =  (*numLocations) - railcount ;
