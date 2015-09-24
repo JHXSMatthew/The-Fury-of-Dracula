@@ -435,7 +435,7 @@ LocationID *connectedLocations(GameView currentView, int *numLocations,
 		int sea) {
 int railcount =0;
 int roadcount =0;
-
+	int i;
 	*numLocations =0;
 	LocationID loc [MAX_CONNECTION] ;
 printf("GameView -> Connection function start   \n");
@@ -467,9 +467,9 @@ printf("GameView -> FOUND RAIL: %d \n", *numLocations);
 printf("GameView -> ROAD: %d \n", road);
 	if(road){
 		outputConnections(currentView->map, from , ROAD , numLocations,loc, 0);
-		/*
+
 		if(player == PLAYER_DRACULA){
-			int i;
+
 			int found = 0;
 			for(i=0;i < *numLocations; i++){
 				if(!found){
@@ -487,7 +487,7 @@ printf("GameView -> ROAD: %d \n", road);
 				(*numLocations) --;
 			}
 		}
-		*/
+
 
 
 roadcount =  (*numLocations) - railcount ;
@@ -508,10 +508,11 @@ printf("GameView -> FOUND SEA: %d \n", *numLocations - railcount - roadcount);
 	int * output;
 	output=NULL;
 	output = (int*) malloc(sizeof(int) * *numLocations);
-	/*int i;
 	for(i = 0; i < * numLocations; i++){
 		output[i] = loc[i];
 	}
+	/*int i;
+
 	currentView->freeOutPut[currentView->currentFreeOutPut] = output;
 	currentView->currentFreeOutPut++;
 	*/
