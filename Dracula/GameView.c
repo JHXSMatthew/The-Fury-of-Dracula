@@ -14,7 +14,8 @@
 #define FIRST_ACTION 3
 #define ALIVE 1
 #define DEAD 0
-
+//if you want debug information change it to 1 or more
+#define DEBUG 0
 
 
 // #include "Map.h" ... if you decide to use the Map ADT
@@ -69,21 +70,24 @@ GameView newGameView(char *pastPlays, PlayerMessage messages[]) {
 	if(*pastPlays == '\0'){
         
 		setInitials(gameView);
+		if(DEBUG)
         printf("GameView -> initial conditions now \n");
 	}else{
 		while (pastPlays[curr] == 'G' || pastPlays[curr] =='M' ||pastPlays[curr] =='S' || pastPlays[curr] =='D'||pastPlays[curr] =='H' ) {
-            printf("TMEP DEBUG ==> %c \n",pastPlays[curr]);
+			if(DEBUG) printf("TMEP DEBUG ==> %c \n",pastPlays[curr]);
 			//placeName = "...";
 			//action = "....";
+			if(DEBUG)
             printf("GameView -> Turn Begin  \n");
 			if(curr == 0){
 				setInitials(gameView);
+				if(DEBUG)
                 printf("GameView -> initial conditions now \n");
 			}
 
 				//change current player for future use
 			setCurrentPlayer(gameView, whoIsThis(&pastPlays[curr]));
-
+			if(DEBUG)
 printf("GameView -> setCurrent Player : %d\n",whoIsThis(&pastPlays[curr]));
 
 			assert(gameView->currentPlayer != -1);
@@ -92,33 +96,38 @@ printf("GameView -> setCurrent Player : %d\n",whoIsThis(&pastPlays[curr]));
 			strncpy(placeName, &pastPlays[curr + 1], 2);
             placeName[2] = '\0';
             id = getId(gameView,placeName);
-
+            if(DEBUG)
 printf("GameView -> setCurrent Place Name:%s,ID:%d\n",placeName,id);
 				// set location now
 
 			if(isAlive(gameView,getCurrentPlayer(gameView))){
+				if(DEBUG)
 printf("GameView -> MOVE FINISH \n");
 
                 setLocation(gameView, getCurrentPlayer(gameView), id);				
 				addHistory(gameView,getCurrentPlayer(gameView),id);
 				strncpy(action,&pastPlays[curr + 3],4);
                 action[4] = '\0';
+                if(DEBUG)
 printf("GameView -> Action String :%s\n",action);
 				//check who is the player and do actions
 				if(getCurrentPlayer(gameView) <= 3){
 					//hunter acrtions
+					if(DEBUG)
 printf("GameView -> Player action \n");
 					//check traps
 					int i;
 					for (i=0; i < strlen(action); i++ ){
 						if(action[i] == 'T'){
 							setHealth(gameView,getCurrentPlayer(gameView),getHealth(gameView,getCurrentPlayer(gameView)) - 2);
+							if(DEBUG)
                             printf("GameView -> Trap encountered for %d ,After health : %d \n",gameView->currentPlayer, getHealth(gameView,getCurrentPlayer(gameView)));
 						}else if(action[i] == 'V'){
 							//wow, no effect to huntet OK.
 						}else if(action[i] == 'D'){
 							setHealth(gameView,getCurrentPlayer(gameView),getHealth(gameView,getCurrentPlayer(gameView) )- 4);
 							setHealth(gameView,PLAYER_DRACULA,getHealth(gameView,PLAYER_DRACULA )- 10);
+							if(DEBUG)
 printf("GameView -> Dracula Encountered for %d ,After health : %d \n",gameView->currentPlayer, getHealth(gameView,getCurrentPlayer(gameView)));
 						}
 					}
@@ -247,6 +256,7 @@ static void addHistory(GameView gameView,int player ,int location){
 }
 
 static int doubleBackSea(GameView gameView ,int back){
+	if(DEBUG)
 	printf("GameView -> %d \n",getValue(gameView->history[PLAYER_DRACULA],back -1));
 	if(getValue(gameView->history[PLAYER_DRACULA],back-1) == SEA_UNKNOWN){
 		return TRUE;
@@ -438,33 +448,39 @@ int roadcount =0;
 	int i;
 	*numLocations =0;
 	LocationID loc [MAX_CONNECTION] ;
+	if(DEBUG)
 printf("GameView -> Connection function start   \n");
 
 
 
 //dead?
 	if(isAlive(currentView,player) == DEAD){
+		if(DEBUG)
 		printf("GameView -> DEAD,nothing to do    \n");
 		*numLocations =0;
 	     return NULL;
 	 }
 //dracula cannot move rail
     if(player > 3){
+    	if(DEBUG)
     	printf("GameView -> Dracula cannot move by RAIL    \n");
         if(rail == TRUE){
             rail = FALSE;
         }
     }
-
+    if(DEBUG)
 printf("GameView -> RAIL: %d \n", rail);
 	if(rail){
 		int depth = (currentView->round + player) %4;
 		outputConnections(currentView->map, from , RAIL , numLocations,loc, depth);
+		if(DEBUG)
 printf("GameView -> DEPTH: %d \n", depth);
 railcount =	(*numLocations);
+if(DEBUG)
 printf("GameView -> FOUND RAIL: %d \n", *numLocations);
 
 	}
+	if(DEBUG)
 printf("GameView -> ROAD: %d \n", road);
 	if(road){
 		outputConnections(currentView->map, from , ROAD , numLocations,loc, 0);
@@ -477,6 +493,7 @@ printf("GameView -> ROAD: %d \n", road);
 					if(loc[i] == ST_JOSEPH_AND_ST_MARYS){
 						if(player == PLAYER_DRACULA){
 							found = 1;
+							if(DEBUG)
 							printf("GameView -> FOUND: %d \n", road);
 						}
 					}
@@ -492,13 +509,15 @@ printf("GameView -> ROAD: %d \n", road);
 
 
 roadcount =  (*numLocations) - railcount ;
+if(DEBUG)
 printf("GameView -> FOUND ROAD: %d \n", (*numLocations) - railcount );
 
 	}
+	if(DEBUG)
 printf("GameView -> SEA: %d \n", sea);
 	if(sea){
 		outputConnections(currentView->map, from , BOAT , numLocations,loc, 0);
-
+		if(DEBUG)
 printf("GameView -> FOUND SEA: %d \n", *numLocations - railcount - roadcount);
 
 
