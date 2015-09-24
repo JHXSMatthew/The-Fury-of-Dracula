@@ -431,14 +431,14 @@ LocationID *connectedLocations(GameView currentView, int *numLocations,
 int railcount =0;
 int roadcount =0;
 
-	numLocations =0;
+	*numLocations =0;
 	LocationID loc [MAX_CONNECTION] ;
 printf("GameView -> Connection function start   \n");
 
 //dead?
 	if(isAlive(currentView,player) == DEAD){
 		printf("GameView -> DEAD,nothing to do    \n");
-	     numLocations = 0;
+		*numLocations =0;
 	     return NULL;
 	 }
 //dracula cannot move rail
