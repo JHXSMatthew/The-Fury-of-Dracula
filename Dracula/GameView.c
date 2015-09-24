@@ -467,6 +467,7 @@ printf("GameView -> FOUND RAIL: %d \n", *numLocations);
 printf("GameView -> ROAD: %d \n", road);
 	if(road){
 		outputConnections(currentView->map, from , ROAD , numLocations,loc, 0);
+		/*
 		if(player == PLAYER_DRACULA){
 			int i;
 			int found = 0;
@@ -486,6 +487,7 @@ printf("GameView -> ROAD: %d \n", road);
 				(*numLocations) --;
 			}
 		}
+		*/
 
 
 roadcount =  (*numLocations) - railcount ;
