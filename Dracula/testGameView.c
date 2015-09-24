@@ -107,6 +107,25 @@ int main()
     assert(size == 1);
     assert(edges[0] == ATHENS);
     free(edges);
+
+    edges = connectedLocations(gv,&size,SOFIA,PLAYER_LORD_GODALMING,0,0,1,0);
+    assert(size == 1);
+   // assert(edges[0] == ATHENS);
+    free(edges);
+
+    edges = connectedLocations(gv,&size,SOFIA,1,0,0,1,0);
+    assert(size == 4);
+    //assert(edges[0] == ATHENS);
+    free(edges);
+
+    edges = connectedLocations(gv,&size,SOFIA,2,0,0,1,0);
+    assert(size == 5);
+    //assert(edges[0] == ATHENS);
+    free(edges);
+
+
+
+
     printf("passed\n");
     disposeGameView(gv);
     return 0;

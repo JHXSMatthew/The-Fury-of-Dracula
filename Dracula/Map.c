@@ -193,7 +193,6 @@ int outputConnections(Map g, LocationID start ,TransportID type , int *numLocati
 
 
 void searchRail(Map g, LocationID curr,LocationID loc[], int *numLocations,int currentDepth,int depth){
-
 	if(currentDepth >= depth){
 		return;
 	}
@@ -203,6 +202,7 @@ void searchRail(Map g, LocationID curr,LocationID loc[], int *numLocations,int c
 		if(current->type == RAIL){
 			if(!repeated(curr, loc, numLocations)){
 				loc[*numLocations] = current->v;
+				printf("NAME :  %s \n",idToName(current->v));
 			}
 			(*numLocations) ++;
 			searchRail(g,current->v,loc,numLocations,currentDepth,depth);

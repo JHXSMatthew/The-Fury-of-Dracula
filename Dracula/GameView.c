@@ -458,9 +458,10 @@ printf("GameView -> Connection function start   \n");
 
 printf("GameView -> RAIL: %d \n", rail);
 	if(rail){
-		int depth = currentView->round + currentView->currentPlayer;
+		int depth = (currentView->round + player) %4;
 		outputConnections(currentView->map, from , RAIL , numLocations,loc, depth);
- railcount =	(*numLocations);
+printf("GameView -> DEPTH: %d \n", depth);
+railcount =	(*numLocations);
 printf("GameView -> FOUND RAIL: %d \n", *numLocations);
 
 	}
