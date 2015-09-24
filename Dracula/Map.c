@@ -185,7 +185,9 @@ int outputConnections(Map g, LocationID start ,TransportID type , int *numLocati
 		}
 		break;
 	}
-
+	if(!repeated(start,loc, numLocations)){
+		loc[(*numLocations) ++] = start;
+	}
 	return 1;
 }
 
