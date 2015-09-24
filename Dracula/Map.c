@@ -163,9 +163,9 @@ int outputConnections(Map g, LocationID start ,TransportID type , int *numLocati
 		while(current != NULL){
 
 			if(current->type == ROAD){
-				if(!repeated(current->v, loc, numLocations)){
+			//	if(!repeated(current->v, loc, numLocations)){
 					loc[*numLocations] = current->v;
-				}
+			//	}
 				numLocations ++;
 
 			}
