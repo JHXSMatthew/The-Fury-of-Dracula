@@ -430,7 +430,7 @@ LocationID *connectedLocations(GameView currentView, int *numLocations,
 		int sea) {
 
 	LocationID loc [MAX_CONNECTION] ;
-printf("GameView -> Connection function start  %d \n");
+printf("GameView -> Connection function start   \n");
 
 //dead?
 	if(isAlive(currentView,player) == DEAD){
