@@ -368,7 +368,7 @@ void disposeGameView(GameView toBeDeleted) {
 	//COMPLETE THIS IMPLEMENTATION
 	int i;
 	for(i = 0; i< 5 ; i++){
-        printf("GameView -> Free list Num.%d \n",i);
+    //    printf("GameView -> Free list Num.%d \n",i);
 		freeList(toBeDeleted->history[i]);
 	}
     disposeMap(toBeDeleted->map);
