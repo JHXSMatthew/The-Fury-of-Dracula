@@ -428,7 +428,8 @@ void getHistory(GameView currentView, PlayerID player,
 LocationID *connectedLocations(GameView currentView, int *numLocations,
 		LocationID from, PlayerID player, Round round, int road, int rail,
 		int sea) {
-
+int railcount =0;
+int roadcount =0;
 	LocationID loc [MAX_CONNECTION] ;
 printf("GameView -> Connection function start   \n");
 
@@ -450,14 +451,24 @@ printf("GameView -> RAIL: %d \n", rail);
 	if(rail){
 		int depth = currentView->round + currentView->currentPlayer;
 		outputConnections(currentView->map, from , RAIL , numLocations,loc, depth);
+ railcount =	(*numLocations);
+printf("GameView -> FOUND RAIL: %d \n", *numLocations);
+
 	}
-	printf("GameView -> ROAD: %d \n", road);
+printf("GameView -> ROAD: %d \n", road);
 	if(road){
 		outputConnections(currentView->map, from , ROAD , numLocations,loc, 0);
+roadcount =  (*numLocations) - railcount ;
+printf("GameView -> FOUND ROAD: %d \n", (*numLocations) - railcount );
+
 	}
-	printf("GameView -> SEA: %d \n", sea);
+printf("GameView -> SEA: %d \n", sea);
 	if(sea){
 		outputConnections(currentView->map, from , BOAT , numLocations,loc, 0);
+
+printf("GameView -> FOUND SEA: %d \n", *numLocations - railcount - roadcount);
+
+
 	}
 
 
