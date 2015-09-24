@@ -29,8 +29,10 @@ struct gameView {
 	int Playerstatus[5];
 	List history[5];
     Map map;
+    /*
     int * freeOutPut[MAX_CONNECTION];
     int currentFreeOutPut;
+    */
 };
 
 //typedef char currentMessage[7];
@@ -320,8 +322,9 @@ static void setInitials(GameView gameView){
 		append(gameView->history[PLAYER_DRACULA],-1);
 	}
     gameView->map = newMap();
-
+/*
     gameView->currentFreeOutPut = 0;
+    */
 }
 
 
@@ -372,9 +375,11 @@ void disposeGameView(GameView toBeDeleted) {
 		freeList(toBeDeleted->history[i]);
 	}
     disposeMap(toBeDeleted->map);
+    /*
     for(i=0;i < toBeDeleted->currentFreeOutPut; i++){
     	free(toBeDeleted->freeOutPut[i]);
     }
+    */
 	free(toBeDeleted);
 }
 
@@ -435,6 +440,8 @@ int roadcount =0;
 	LocationID loc [MAX_CONNECTION] ;
 printf("GameView -> Connection function start   \n");
 
+
+
 //dead?
 	if(isAlive(currentView,player) == DEAD){
 		printf("GameView -> DEAD,nothing to do    \n");
@@ -460,6 +467,25 @@ printf("GameView -> FOUND RAIL: %d \n", *numLocations);
 printf("GameView -> ROAD: %d \n", road);
 	if(road){
 		outputConnections(currentView->map, from , ROAD , numLocations,loc, 0);
+		int i;
+		int found = 0;
+		for(i=0;i < *numLocations; i++){
+			if(!found){
+				if(loc[i] == ST_JOSEPH_AND_ST_MARYS){
+					if(player == PLAYER_DRACULA){
+						found = 1;
+					}
+				}
+			}else{
+				loc[i-1] = loc[i];
+			}
+		}
+		if(found){
+			(*numLocations) --;
+		}
+
+
+
 roadcount =  (*numLocations) - railcount ;
 printf("GameView -> FOUND ROAD: %d \n", (*numLocations) - railcount );
 
@@ -478,12 +504,14 @@ printf("GameView -> FOUND SEA: %d \n", *numLocations - railcount - roadcount);
 	int * output;
 	output=NULL;
 	output = (int*) malloc(sizeof(int) * *numLocations);
-	int i;
+	/*int i;
 	for(i = 0; i < * numLocations; i++){
 		output[i] = loc[i];
 	}
 	currentView->freeOutPut[currentView->currentFreeOutPut] = output;
 	currentView->currentFreeOutPut++;
+	*/
+
 	return output;
 /*
     int transID[MAX_CONNECTION];
