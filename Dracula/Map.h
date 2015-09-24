@@ -21,4 +21,13 @@ void showMap(Map g);
 int  numV(Map g);
 int  numE(Map g, TransportID t);
 
+
+
+int outputConnections(Map g, LocationID start ,TransportID type , int *numLocations,LocationID loc[], int depth);
+void searchRail(Map g, LocationID curr,LocationID loc[], int *numLocations,int currentDepth,int depth);
+
+
+
+
+
 #endif

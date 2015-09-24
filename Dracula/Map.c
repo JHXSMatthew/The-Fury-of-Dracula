@@ -23,7 +23,7 @@ struct MapRep {
 };
 
 static void addConnections(Map);
-
+static int repeated(LocationID des , LocationID loc[],  int *numLocations);
 // Create a new empty graph (for a map)
 // #Vertices always same as NUM_PLACES
 Map newMap()
@@ -133,6 +133,109 @@ int numE(Map g, TransportID type)
     }
     return nE;
 }
+
+
+static int repeated(LocationID des , LocationID loc[],  int *numLocations){
+	int i ;
+	for(i=0 ; i < *numLocations ;i++){
+		if(loc[i] == des){
+			return 1;
+		}
+
+	}
+	return 0;
+
+}
+
+int outputConnections(Map g, LocationID start ,TransportID type , int *numLocations,LocationID loc[], int depth){
+	VList current = g->connections[start] ;
+
+	switch(type){
+	case RAIL:
+		if(!depth){
+			return 0;
+		}else{
+			searchRail( g ,start, loc , numLocations ,0,depth);
+		}
+
+		break;
+	case ROAD:
+		while(current != NULL){
+			if(current->type == ROAD){
+				if(!repeated(current->v, loc, numLocations)){
+					loc[*numLocations] = current->v;
+				}
+				numLocations ++;
+				current = current->next;
+			}
+		}
+		break;
+	case BOAT:
+		while(current != NULL){
+			if(current->type == BOAT){
+				if(!repeated(current->v,loc, numLocations)){
+					loc[*numLocations] = current->v;
+				}
+				numLocations ++;
+				current = current->next;
+			}
+		}
+		break;
+	}
+
+	return 1;
+}
+
+
+void searchRail(Map g, LocationID curr,LocationID loc[], int *numLocations,int currentDepth,int depth){
+
+	if(currentDepth >= depth){
+		return;
+	}
+	currentDepth ++;
+	VList current = g->connections[curr];
+	while(current != NULL){
+		if(current->type == RAIL){
+			if(!repeated(curr, loc, numLocations)){
+				loc[*numLocations] = current->v;
+			}
+			numLocations++;
+			searchRail(g,current->v,loc,numLocations,currentDepth,depth);
+			current= current->next;
+
+		}
+	}
+
+
+
+}
+
+/*
+int connections(Map g, LocationID start, LocationID end, TransportID type[])
+{
+   assert(g != NULL);
+   int returnValue=0;
+   VList current = g->connections[start];
+   VList curr1;
+   while(current != NULL){
+      if(current->v == end){
+         type[returnValue] = current->type;
+         returnValue++;
+      }
+
+      current=current->next;
+   }
+   return returnValue;
+
+   // TODO: complete this fucntion
+ //  return 0;  // to keep the compiler happy
+}
+
+
+*/
+
+
+
 
 // Add edges to Graph representing map of Europe
 static void addConnections(Map g)

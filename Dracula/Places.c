@@ -89,6 +89,15 @@ static Place places[] =
    {"Vienna", "VI", VIENNA, LAND},
    {"Zagreb", "ZA", ZAGREB, LAND},
    {"Zurich", "ZU", ZURICH, LAND},
+ /*  {"C?", "C?", CITY_UNKNOWN,-1},
+   {"S?", "S?", SEA_UNKNOWN,-1},
+   {"HI", "HI", HIDE,-1},
+   {"D1", "D1", DOUBLE_BACK_1,-1},
+   {"D2", "D2", DOUBLE_BACK_2,-1},
+   {"D3", "D3", DOUBLE_BACK_3,-1},
+   {"D4", "D4", DOUBLE_BACK_4,-1},
+   {"D5", "D5", DOUBLE_BACK_5,-1},
+   {"TP", "TP", TELEPORT,-1},*/
 };
 
 // given a Place number, return its name
