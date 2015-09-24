@@ -153,11 +153,10 @@ int outputConnections(Map g, LocationID start ,TransportID type , int *numLocati
 	switch(type){
 	case RAIL:
 		if(!depth){
-			return 0;
+			break;
 		}else{
 			searchRail( g ,start, loc , numLocations ,0,depth);
 		}
-
 		break;
 	case ROAD:
 		while(current != NULL){
@@ -185,6 +184,7 @@ int outputConnections(Map g, LocationID start ,TransportID type , int *numLocati
 		}
 		break;
 	}
+
 	if(!repeated(start,loc, numLocations)){
 		loc[(*numLocations) ++] = start;
 	}
