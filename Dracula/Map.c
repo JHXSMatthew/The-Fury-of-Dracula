@@ -161,13 +161,15 @@ int outputConnections(Map g, LocationID start ,TransportID type , int *numLocati
 		break;
 	case ROAD:
 		while(current != NULL){
+
 			if(current->type == ROAD){
 				if(!repeated(current->v, loc, numLocations)){
 					loc[*numLocations] = current->v;
 				}
 				numLocations ++;
-				current = current->next;
+
 			}
+			current = current->next;
 		}
 		break;
 	case BOAT:
@@ -177,8 +179,9 @@ int outputConnections(Map g, LocationID start ,TransportID type , int *numLocati
 					loc[*numLocations] = current->v;
 				}
 				numLocations ++;
-				current = current->next;
+
 			}
+			current = current->next;
 		}
 		break;
 	}
@@ -201,9 +204,10 @@ void searchRail(Map g, LocationID curr,LocationID loc[], int *numLocations,int c
 			}
 			numLocations++;
 			searchRail(g,current->v,loc,numLocations,currentDepth,depth);
-			current= current->next;
+
 
 		}
+		current= current->next;
 	}
 
 
