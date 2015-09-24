@@ -442,16 +442,16 @@ LocationID *connectedLocations(GameView currentView, int *numLocations,
         }
     }
 
-
+printf("GameView -> RAIL: %d \n", rail);
 	if(rail){
 		int depth = currentView->round + currentView->currentPlayer;
 		outputConnections(currentView->map, from , RAIL , numLocations,loc, depth);
 	}
-
+	printf("GameView -> ROAD: %d \n", road);
 	if(road){
 		outputConnections(currentView->map, from , ROAD , numLocations,loc, 0);
 	}
-
+	printf("GameView -> SEA: %d \n", sea);
 	if(sea){
 		outputConnections(currentView->map, from , BOAT , numLocations,loc, 0);
 	}
