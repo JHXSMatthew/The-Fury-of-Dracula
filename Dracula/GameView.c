@@ -474,6 +474,7 @@ printf("GameView -> FOUND SEA: %d \n", *numLocations - railcount - roadcount);
 
 //malloc output array
 	int * output;
+	output=NULL;
 	output = (int*) malloc(sizeof(int) * *numLocations);
 	int i;
 	for(i = 0; i < * numLocations; i++){
