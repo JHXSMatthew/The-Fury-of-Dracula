@@ -475,6 +475,7 @@ printf("GameView -> ROAD: %d \n", road);
 					if(loc[i] == ST_JOSEPH_AND_ST_MARYS){
 						if(player == PLAYER_DRACULA){
 							found = 1;
+							printf("GameView -> FOUND: %d \n", road);
 						}
 					}
 				}else{
