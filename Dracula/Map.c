@@ -163,10 +163,10 @@ int outputConnections(Map g, LocationID start ,TransportID type , int *numLocati
 		while(current != NULL){
 
 			if(current->type == ROAD){
-			//	if(!repeated(current->v, loc, numLocations)){
+				if(!repeated(current->v, loc, numLocations)){
 					loc[*numLocations] = current->v;
-			//	}
-				numLocations ++;
+				}
+				(*numLocations) ++;
 
 			}
 			current = current->next;
@@ -178,7 +178,7 @@ int outputConnections(Map g, LocationID start ,TransportID type , int *numLocati
 				if(!repeated(current->v,loc, numLocations)){
 					loc[*numLocations] = current->v;
 				}
-				numLocations ++;
+				(*numLocations)  ++;
 
 			}
 			current = current->next;
@@ -202,7 +202,7 @@ void searchRail(Map g, LocationID curr,LocationID loc[], int *numLocations,int c
 			if(!repeated(curr, loc, numLocations)){
 				loc[*numLocations] = current->v;
 			}
-			numLocations++;
+			(*numLocations) ++;
 			searchRail(g,current->v,loc,numLocations,currentDepth,depth);
 
 
