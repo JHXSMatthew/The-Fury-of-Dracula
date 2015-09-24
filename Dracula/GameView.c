@@ -430,6 +430,7 @@ LocationID *connectedLocations(GameView currentView, int *numLocations,
 		int sea) {
 int railcount =0;
 int roadcount =0;
+	numLocations =0;
 	LocationID loc [MAX_CONNECTION] ;
 printf("GameView -> Connection function start   \n");
 
